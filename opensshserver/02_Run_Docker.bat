@@ -1,1 +1,1 @@
-docker run -it ninetom/openssh-debian11 bash
+docker run -p 22:22 -it ninetom/openssh-debian11 bash

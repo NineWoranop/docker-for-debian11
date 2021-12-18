@@ -9,3 +9,5 @@ RUN apt-get update; apt-get install -y openssh-server;
 
 # Print version
 RUN ssh -V
+
+EXPOSE 22
