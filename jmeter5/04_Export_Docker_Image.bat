@@ -1,1 +1,1 @@
-docker save -o client-jmeter.tar ninetom/jmeter5:5.4.1
+docker save -o jmeter5-img.tar ninetom/jmeter5:5.4.1

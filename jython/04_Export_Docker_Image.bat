@@ -1,1 +1,1 @@
-docker save -o client-jython.tar ninetom/jython:2.7.2
+docker save -o jython-img.tar ninetom/jython:2.7.2
