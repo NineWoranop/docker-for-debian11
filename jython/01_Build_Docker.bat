@@ -1,0 +1,1 @@
+docker build -t ninetom/jython:2.7.2 .

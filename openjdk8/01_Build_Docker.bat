@@ -1,0 +1,1 @@
+docker build -t ninetom/openjdk8-debian11:8u302-b08-1 .

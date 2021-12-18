@@ -1,0 +1,1 @@
+docker save -o client-openjdk8.tar ninetom/openjdk8-debian11:8u302-b08-1

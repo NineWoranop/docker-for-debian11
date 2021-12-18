@@ -1,0 +1,1 @@
+docker run -p 1099:1099 -p 50000:50000 -it --entrypoint /bin/bash ninetom/jmeter5:5.4.1
