@@ -12,4 +12,6 @@ EXPOSE 1194
 
 # ENTRYPOINT ["/usr/sbin/openvpn", "--help"]
 # CMD ["/usr/sbin/openvpn", "--config", "/etc/openvpn/server/server.conf"]
-CMD nohup /usr/sbin/openvpn --config /etc/openvpn/server/server.conf & sleep infinity
+# CMD nohup /usr/sbin/openvpn --config /etc/openvpn/server/server.conf & sleep infinity
+CMD /usr/sbin/openvpn --config /etc/openvpn/server/server.conf & tail -f /var/log/openvpn/openvpn.log
+# CMD /usr/sbin/openvpn --config /etc/openvpn/server/server.conf & tail -f /var/log/openvpn/openvpn.log

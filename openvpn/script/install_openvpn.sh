@@ -42,11 +42,11 @@ key /etc/openvpn/server/vpn-server.key\n\
 dh /etc/openvpn/server/dh.pem\n\
 \n\
 server 10.8.0.0 255.255.255.0\n\
-push redirect-gateway def1\n\
+push \"redirect-gateway def1\"\n\
 \n\
 # Publish your vpn to DNS by used Google's DNS\n\
-push dhcp-option DNS 8.8.8.8\n\
-push dhcp-option DNS 8.8.4.4\n\
+push \"dhcp-option DNS 8.8.8.8\"\n\
+push \"dhcp-option DNS 8.8.4.4\"\n\
 \n\
 # TLS Security\n\
 cipher AES-256-GCM\n\
