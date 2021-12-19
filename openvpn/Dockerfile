@@ -8,4 +8,4 @@ RUN chmod +x /*.sh;/install_openvpn.sh
 
 EXPOSE 1194
 
-ENTRYPOINT ["/startup-openvpn.sh"]
+CMD ["/startup-openvpn.sh"]
