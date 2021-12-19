@@ -53,7 +53,7 @@ log-append /var/log/openvpn/openvpn.log
 verb 3
 
 ;explicit-exit-notify 1
-daemon
+;daemon
 EOF
 #Copy configuration for VPN server
 cp pki/dh.pem /etc/openvpn/server/
