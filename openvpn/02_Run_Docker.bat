@@ -1,1 +1,1 @@
-docker run -p 1194:1194 -it ninetom/openvpn-debian11 bash
+docker run --privileged -p 1194:1194 -it ninetom/openvpn-debian11 bash
