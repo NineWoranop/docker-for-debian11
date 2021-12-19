@@ -65,3 +65,8 @@ cp pki/ca.crt /etc/openvpn/client/
 cp pki/issued/vpn-client01.crt /etc/openvpn/client/
 cp pki/private/vpn-client01.key /etc/openvpn/client/
 cp /etc/openvpn/server/ta.key /etc/openvpn/client/
+# mkdir -p /dev/net
+# if [ ! -c /dev/net/tun ]; then
+#     mknod /dev/net/tun c 10 200
+#     chmod 600 /dev/net/tun
+# fi
