@@ -41,22 +41,17 @@ key /etc/openvpn/server/vpn-server.key\n\
 #DH and CRL key\n\
 dh /etc/openvpn/server/dh.pem\n\
 \n\
-# Network Configuration - Internal network\n\
-# Redirect all Connection through OpenVPN Server\n\
 server 10.8.0.0 255.255.255.0\n\
-push "redirect-gateway def1"\n\
+push redirect-gateway def1\n\
 \n\
 # Publish your vpn to DNS by used Google's DNS\n\
-push "dhcp-option DNS 8.8.8.8"\n\
-push "dhcp-option DNS 8.8.4.4"\n\
-\n\
-#Enable multiple client to connect with same Certificate key\n\
-duplicate-cn\n\
+push dhcp-option DNS 8.8.8.8\n\
+push dhcp-option DNS 8.8.4.4\n\
 \n\
 # TLS Security\n\
-cipher AES-256-CBC\n\
+cipher AES-256-GCM\n\
 tls-version-min 1.2\n\
-tls-cipher TLS-DHE-RSA-WITH-AES-256-GCM-SHA384:TLS-DHE-RSA-WITH-AES-256-CBC-SHA256:TLS-DHE-RSA-WITH-AES-128-GCM-SHA256:TLS-DHE-RSA-WITH-AES-128-CBC-SHA256\n\
+tls-cipher TLS-DHE-RSA-WITH-AES-256-GCM-SHA384:TLS-DHE-RSA-WITH-AES-128-GCM-SHA256\n\
 auth SHA512\n\
 auth-nocache\n\
 tls-auth /etc/openvpn/server/ta.key 0\n\
@@ -64,19 +59,19 @@ tls-auth /etc/openvpn/server/ta.key 0\n\
 \n\
 # Other Configuration\n\
 keepalive 20 60\n\
+user nobody\n\
+group nogroup\n\
 persist-key\n\
 persist-tun\n\
-comp-lzo yes\n\
-daemon\n\
-user nobody\n\
-group nobody\n\
+;comp-lzo yes\n\
 \n\
 # OpenVPN Log\n\
-log-append /var/log/openvpn.log\n\
+status /var/log/openvpn/openvpn-status.log\n\
+log-append /var/log/openvpn/openvpn.log\n\
 verb 3\n\
 \n\
-#status openvpn-status.log\n\
-#explicit-exit-notify 1" > /etc/openvpn/server/server.conf 
+;explicit-exit-notify 1\n\
+;daemon" > /etc/openvpn/server/server.conf 
 #Copy configuration for VPN server
 cp pki/dh.pem /etc/openvpn/server/
 cp pki/ca.crt /etc/openvpn/server/
