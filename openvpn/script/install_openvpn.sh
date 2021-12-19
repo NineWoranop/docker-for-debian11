@@ -28,37 +28,41 @@ openvpn --genkey secret /etc/openvpn/server/ta.key
 # 860f00d2dddaebb827632cd1010b0a2b\n\
 # -----END OpenVPN Static key V1-----" > /etc/openvpn/server/ta.key
 # Configure VPN
-echo -e "port 1194\n\
+echo -e "# OpenVPN Port, Protocol and the Tun\n\
+port 1194\n\
 proto tcp\n\
 dev tun\n\
 \n\
+# OpenVPN Server Certificate - CA, server key and certificate\n\
 ca /etc/openvpn/server/ca.crt\n\
 cert /etc/openvpn/server/vpn-server.crt\n\
 key /etc/openvpn/server/vpn-server.key\n\
 \n\
+#DH and CRL key\n\
 dh /etc/openvpn/server/dh.pem\n\
 \n\
+# Network Configuration - Internal network\n\
+# Redirect all Connection through OpenVPN Server\n\
 server 10.8.0.0 255.255.255.0\n\
-push \"redirect-gateway def1\"\n\
+push "redirect-gateway def1"\n\
 \n\
-push \"dhcp-option DNS 8.8.8.8\"\n\
+# Publish your vpn to DNS by used Google's DNS\n\
+push "dhcp-option DNS 8.8.8.8"\n\
+push "dhcp-option DNS 8.8.4.4"\n\
 \n\
+#Enable multiple client to connect with same Certificate key\n\
 duplicate-cn\n\
 \n\
+# TLS Security\n\
 cipher AES-256-CBC\n\
-
--version-min 1.2\n\
-
--cipher 
--DHE-RSA-WITH-AES-256-GCM-SHA384:
--DHE-RSA-WITH-AES-256-CBC-SHA256:
--DHE-RSA-WITH-AES-128-GCM-SHA256:
--DHE-RSA-WITH-AES-128-CBC-SHA256\n\
+tls-version-min 1.2\n\
+tls-cipher TLS-DHE-RSA-WITH-AES-256-GCM-SHA384:TLS-DHE-RSA-WITH-AES-256-CBC-SHA256:TLS-DHE-RSA-WITH-AES-128-GCM-SHA256:TLS-DHE-RSA-WITH-AES-128-CBC-SHA256\n\
 auth SHA512\n\
 auth-nocache\n\
-
--auth ta.key 0\n\
+tls-auth /etc/openvpn/server/ta.key 0\n\
+#tls-crypt myvpn.tlsauth\n\
 \n\
+# Other Configuration\n\
 keepalive 20 60\n\
 persist-key\n\
 persist-tun\n\
@@ -67,8 +71,14 @@ daemon\n\
 user nobody\n\
 group nobody\n\
 \n\
+# OpenVPN Log\n\
 log-append /var/log/openvpn.log\n\
-verb 3" > /etc/openvpn/server/server.conf 
+verb 3\n\
+\n\
+#status openvpn-status.log\n\
+#explicit-exit-notify 1" > /etc/openvpn/server/server.conf 
+#Copy configuration for VPN server
+cp pki/dh.pem /etc/openvpn/server/
 cp pki/ca.crt /etc/openvpn/server/
 cp pki/issued/vpn-server.crt /etc/openvpn/server/
 cp pki/private/vpn-server.key /etc/openvpn/server/
@@ -76,5 +86,4 @@ cp pki/private/vpn-server.key /etc/openvpn/server/
 cp pki/ca.crt /etc/openvpn/client/
 cp pki/issued/vpn-client01.crt /etc/openvpn/client/
 cp pki/private/vpn-client01.key /etc/openvpn/client/
-#Copy DH Key.
-cp pki/dh.pem /etc/openvpn/server/
+cp /etc/openvpn/server/ta.key /etc/openvpn/client/
