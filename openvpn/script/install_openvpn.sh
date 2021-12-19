@@ -9,8 +9,7 @@ cd /usr/share/easy-rsa
 ./easyrsa --batch sign-req client vpn-client01
 ./easyrsa gen-dh
 openvpn --genkey secret /etc/openvpn/server/ta.key
-# echo  "\
-# -----BEGIN OpenVPN Static key V1-----\n\
+# echo -e "-----BEGIN OpenVPN Static key V1-----\n\
 # c926675f4df0c07b9ac1d390bcfa4507\n\
 # b2a588dddbfb23ac26253be39d2adfe2\n\
 # 868bc19373ea449e981d25b2f8b41f87\n\
@@ -29,8 +28,7 @@ openvpn --genkey secret /etc/openvpn/server/ta.key
 # 860f00d2dddaebb827632cd1010b0a2b\n\
 # -----END OpenVPN Static key V1-----" > /etc/openvpn/server/ta.key
 # Configure VPN
-echo  "\ 
-port 1194\n\
+echo -e "port 1194\n\
 proto tcp\n\
 dev tun\n\
 \n\
@@ -48,11 +46,18 @@ push \"dhcp-option DNS 8.8.8.8\"\n\
 duplicate-cn\n\
 \n\
 cipher AES-256-CBC\n\
-tls-version-min 1.2\n\
-tls-cipher TLS-DHE-RSA-WITH-AES-256-GCM-SHA384:TLS-DHE-RSA-WITH-AES-256-CBC-SHA256:TLS-DHE-RSA-WITH-AES-128-GCM-SHA256:TLS-DHE-RSA-WITH-AES-128-CBC-SHA256\n\
+
+-version-min 1.2\n\
+
+-cipher 
+-DHE-RSA-WITH-AES-256-GCM-SHA384:
+-DHE-RSA-WITH-AES-256-CBC-SHA256:
+-DHE-RSA-WITH-AES-128-GCM-SHA256:
+-DHE-RSA-WITH-AES-128-CBC-SHA256\n\
 auth SHA512\n\
 auth-nocache\n\
-tls-auth ta.key 0\n\
+
+-auth ta.key 0\n\
 \n\
 keepalive 20 60\n\
 persist-key\n\
