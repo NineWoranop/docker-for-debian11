@@ -1,0 +1,8 @@
+version: '3.3'
+
+services:
+  openvpn:
+    build: openvpn/.
+    privileged: true
+    ports:
+    - "1194:1194"
